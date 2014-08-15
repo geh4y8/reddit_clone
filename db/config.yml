@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: reddit_clone_development
+
+test:
+  adapter: postgresql
+  database: reddit_clone_test
