@@ -10,9 +10,9 @@ describe 'Post' do
 
   it 'grabs all posts from today' do
     user = User.create(name: 'Guy', password: 'green235235')
-    post = Post.create(description: 'awesome reddit post', user_id: user.id)
-    post2 = Post.create(description: 'next awesome reddit post', user_id: user.id)
-    posts = Post.where(:date => Date.today)
+    post = Post.create(description: 'awesome reddit post', user_id: user.id, date: Date.today)
+    post2 = Post.create(description: 'next awesome reddit post', user_id: user.id, date: Date.today)
+    posts = Post.today(Date.today)
     expect(posts).to eq [post, post2]
   end
 end

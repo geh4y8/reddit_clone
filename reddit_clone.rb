@@ -11,6 +11,7 @@ def menu
   until choice == 'x'
     puts "Press a to add a new user"
     puts "Press l to login"
+    puts "Press x to exit"
     choice = gets.chomp
     case choice
     when 'a'
@@ -19,6 +20,7 @@ def menu
       user_login
     when 'x'
       puts 'see ya next time'
+      exit
     else
       puts 'not a valid option'
     end
@@ -62,6 +64,7 @@ def post_menu(user_id)
     puts "Press v to view all your posts"
     puts "Press a to view all posts on reddit for today"
     puts "Press n to view the 5 newest posts"
+    puts "Press x to logout"
     choice = gets.chomp
     case choice
     when 'p'
@@ -82,7 +85,7 @@ end
 
 def add_post(user_id)
   puts "Enter the post details:"
-  post = Post.create(description: gets.chomp, user_id: user_id)
+  post = Post.create(description: gets.chomp, user_id: user_id, date: Date.today)
   puts "Got it!"
   post_menu(user_id)
 end
@@ -92,14 +95,19 @@ def view_posts(user_id)
   posts = Post.where(user_id: user_id).order(:date)
   posts.each do |post|
     puts post.description
-    puts post.created_at
+    puts post.date
   end
 end
 
 def view_todays_posts
   puts "Here are all of today's posts"
-  Post.today.each { |post| puts post.description }
-  #posts = Post.where(:date => Date.today)
-  #posts.each {|post| puts post.description}
+  Post.today(Date.today).each { |post| puts post.description }
 end
+
+def view_newest_posts
+  puts "Here are the 5 latest posts"
+  posts = Post.order(date: :asc).limit(5)
+  posts.each { |post| puts post.description }
+end
+
 menu
