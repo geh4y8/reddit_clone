@@ -64,6 +64,7 @@ def post_menu(user_id)
     puts "Press v to view all your posts"
     puts "Press a to view all posts on reddit for today"
     puts "Press n to view the 5 newest posts"
+    puts "Press r to view all posts by all redditors"
     puts "Press x to logout"
     choice = gets.chomp
     case choice
@@ -75,6 +76,8 @@ def post_menu(user_id)
       view_todays_posts
     when 'n'
       view_newest_posts
+    when 'r'
+      view_all_posts
     when 'x'
       menu
     else
@@ -91,7 +94,7 @@ def add_post(user_id)
 end
 
 def view_posts(user_id)
-  puts "Here are all of your posts in chronological order"
+  puts "Here are all of your posts in chronological order:"
   posts = Post.where(user_id: user_id).order(:date)
   posts.each do |post|
     puts post.description
@@ -100,14 +103,19 @@ def view_posts(user_id)
 end
 
 def view_todays_posts
-  puts "Here are all of today's posts"
+  puts "Here are all of today's posts:"
   Post.today(Date.today).each { |post| puts post.description }
 end
 
 def view_newest_posts
-  puts "Here are the 5 latest posts"
+  puts "Here are the 5 latest posts:"
   posts = Post.order(date: :asc).limit(5)
   posts.each { |post| puts post.description }
+end
+
+def view_all_posts
+  puts "Here are all the posts:"
+  Post.all.each { |post| puts post.description}
 end
 
 menu
