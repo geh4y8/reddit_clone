@@ -33,7 +33,11 @@ def add_user
   puts "Choose a password"
   password = gets.chomp
   user = User.create(name: name, password: password)
-  puts "#{user.name} created!"
+  if user.save
+    puts "#{user.name} created!"
+  else
+    puts "That user name is already taken, please try again"
+  end
 end
 
 def user_login
@@ -64,7 +68,7 @@ def post_menu(user_id)
     puts "Press v to view all your posts"
     puts "Press a to view all posts on reddit for today"
     puts "Press n to view the 5 newest posts"
-    puts "Press r to view all posts by all redditors"
+    puts "Press r to view all posts by all redditors since the beginning of time"
     puts "Press x to logout"
     choice = gets.chomp
     case choice
