@@ -48,7 +48,7 @@ end
 
 def user_login
   puts "What is your user name?"
-  name = gets.chomp
+  name = gets.chomp.upcase
   if User.find_by(name: name)
     puts "What is your password?"
     password = gets.chomp
