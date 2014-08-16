@@ -9,6 +9,12 @@ ActiveRecord::Base.establish_connection(development_configuration)
 def menu
   choice = nil
   until choice == 'x'
+    puts "                                      .-.   .-. _  .-.
+                                      : :   : ::_;.' `.
+                        .--.  .--.  .-' : .-' :.-.`. .'
+                        : ..'' '_.'' .; :' .; :: : : :
+                        :_;  `.__.'`.__.'`.__.':_; :_;
+                                                       "
     puts "Press a to add a new user"
     puts "Press l to login"
     puts "Press x to exit"
@@ -36,7 +42,7 @@ def add_user
   if user.save
     puts "#{user.name} created!"
   else
-    puts "That user name is already taken, please try again"
+    user.errors.full_messages.each { |message| puts message }
   end
 end
 
